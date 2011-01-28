@@ -13,7 +13,7 @@
     				{% for book in books %}
     					{% ifequal book.classname class.name %}
     						<div id="book" style="border-left: 10px solid {{ class.color }};">
-    							<a style="opacity: 1" href="javascript:;" onclick="showBook('{{ book.title }}','{{ class.color }}')">{{ book.titel }}</a>
+    							<a style="opacity: 1" href="javascript:;" onclick="showBook('{{ book.title }}','{{ class.color }}')">{{ book.title }}</a>
     							<a href="javascript:;" onclick="deleteBook('{{ book.classname }}','{{ book.title }}')">
 									<img id="icon" style="width: 15px;" src="/images/delete.png">
 								</a>

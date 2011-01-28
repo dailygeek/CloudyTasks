@@ -56,8 +56,8 @@ class MainPage(I18NRequestHandler):
             classes = Class.all().order("exam").filter('user ==',user).filter('exam >', date.today())
             logoutlink = users.create_logout_url(self.request.uri)
             books = Book.all().filter('user ==',user)
-            inline = Task.all().order("enddate").filter('status ==','Offen').filter('user ==',user).filter('enddate >', date.today())
-            urgent = Task.all().order("enddate").filter('status ==','Offen').filter('user ==',user).filter('enddate <=', date.today())
+            inline = Task.all().order("enddate").filter('state ==','Offen').filter('user ==',user).filter('enddate >', date.today())
+            urgent = Task.all().order("enddate").filter('state ==','Offen').filter('user ==',user).filter('enddate <=', date.today())
             template_values = {
                            'books' : books,
                            'title':'Task Management',
@@ -119,7 +119,7 @@ class MainPage(I18NRequestHandler):
                 classname = classname,
                 color = color,
                 homework = home,
-                status = "Offen",
+                state = "Offen",
                 user = user,
                 text = beschreibung,
                 enddate = enddate
@@ -155,7 +155,6 @@ class MainPage(I18NRequestHandler):
             skentry = Book(
                             title = self.request.get('name'),
                             classname = self.request.get('class'),
-                            status = "offen",
                             user = user
                            )
             skentry.put()
@@ -171,7 +170,7 @@ class MainPage(I18NRequestHandler):
                                 number = number,
                                 user = user,
                                 book = self.request.get('name'),
-                                status = "offen"
+                                state = "offen"
                                 )
                     entry.put()
                 except:
@@ -238,7 +237,7 @@ class RPCMethods:
         from models import Chapter
         user = users.get_current_user()
         chapters = Chapter.all().filter('user ==',user).filter('book ==',args[0]).order('number')
-        done = Chapter.all().filter('user ==',user).filter('book ==',args[0]).filter('status =', "Fertig")
+        done = Chapter.all().filter('user ==',user).filter('book ==',args[0]).filter('state =', "Fertig")
         
         try:
             percent = done.count() * 100 / chapters.count()
@@ -313,11 +312,11 @@ class RPCMethods:
         from models import Class, Task, Book
         from datetime import date
         user = users.get_current_user()
-        inline = Task.all().order("enddate").filter('status ==','Offen').filter('user ==',user).filter('enddate >', date.today())
-        urgent = Task.all().order("enddate").filter('status ==','Offen').filter('user ==',user).filter('enddate <=', date.today())
+        inline = Task.all().order("enddate").filter('state ==','Offen').filter('user ==',user).filter('enddate >', date.today())
+        urgent = Task.all().order("enddate").filter('state ==','Offen').filter('user ==',user).filter('enddate <=', date.today())
         template_values = { 
                            'tasks': inline,
-                           'dringend': urgent,
+                           'urgent': urgent,
                            }
         path = os.path.join(os.path.dirname(__file__), "templates", "tasklist.html")
         code = template.render(path, template_values).decode('utf-8')
@@ -330,8 +329,8 @@ class RPCMethods:
         books = Book.all().filter('user ==',user)
         classes = Class.all().order("exam").filter('user ==',user).filter('exam >', date.today())
         template_values = {
-                           'skripte' : books,
-                           'module': classes
+                           'books' : books,
+                           'classes': classes
                            }
         path = os.path.join(os.path.dirname(__file__), "templates", "listmoduls.html")
         code = template.render(path, template_values).decode('utf-8')
@@ -357,14 +356,13 @@ class RPCMethods:
         user = users.get_current_user()
         classname = args[0].replace('%20', ' ')
         bookname = args[1].replace('%20', ' ')
-        #Deleting all the Scripts and Chapters from this Module
         qq = Book.all().filter('user ==',user).filter('classname ==',classname.replace('%20', ' ')).filter('title ==',bookname)
-        scripts = qq.fetch(10)
-        for script in scripts:
+        books = qq.fetch(10)
+        for book in books:
             qqq = Chapter.all().filter('book ==', script.title).filter('user ==',user)
             for chapter in qqq:
                 chapter.delete()
-            script.delete()
+            book.delete()
             break
         return self.RefreshClasses()
 

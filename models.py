@@ -13,7 +13,7 @@ class Task(db.Model):
     text = db.TextProperty(required=True)
     classname = db.StringProperty(required=True)
     enddate = db.DateTimeProperty(required=True)
-    status = db.StringProperty(required=False)
+    state = db.StringProperty(required=False)
     homework = db.BooleanProperty(required=False)
     color = db.StringProperty(required=False)
     user = db.UserProperty(required=True)
@@ -21,14 +21,13 @@ class Task(db.Model):
 class Book(db.Model):
     title = db.StringProperty(required=True)
     classname = db.StringProperty(required=True)
-    status = db.StringProperty(required=True)
     user = db.UserProperty(required=True)
 
 class Chapter(db.Model):
     title = db.StringProperty(required=True)
     number = db.StringProperty(required=True)
     book = db.StringProperty(required=True)
-    status = db.StringProperty(required=True)
+    state = db.StringProperty(required=True)
     user = db.UserProperty(required=True)
 
 class Event(db.Model):
