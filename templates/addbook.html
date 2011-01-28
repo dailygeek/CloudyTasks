@@ -1,0 +1,16 @@
+{% load i18n %}
+<div id="taskdetail">
+	<div id="detailhead" style="border-bottom: 4px solid gray">
+		{% trans "Neues Skript hinzufuegen" %}
+	</div>
+	<div id="detailbody" style="border-bottom: 2px solid gray">
+		<form method="post" action="/" name="formular" enctype="multipart/form-data">
+			{% trans "Titel" %} <input type="text" size="20" name="name">
+			<br>{% trans "Inhaltsverzeichnis" %}
+			<br><textarea name="index" style="width: 100%;" rows="20"></textarea>
+			<input type="hidden" value="{{ modname }}" name="class">
+			<input type="hidden" value="book" name="type" />
+			<br /><input type="submit" value="{% trans "hinzufuegen" %}" name="hochladen">
+		</form>
+	</div>
+</div>

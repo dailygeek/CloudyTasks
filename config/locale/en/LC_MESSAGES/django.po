@@ -1,0 +1,153 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-01-27 09:35+0100\n"
+"PO-Revision-Date: 2011-01-28 08:28+0100\n"
+"Last-Translator: \n"
+"Language-Team: dailygeek.de <mail@dailygeek.de>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED KINGDOM\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: .\main.py:95
+msgid "Keine Beschreibung vorhanden"
+msgstr "No description availible"
+
+#: .\ncwtasks\settings.py:4
+msgid "German"
+msgstr "Deutsch"
+
+#: .\ncwtasks\settings.py:5
+msgid "English"
+msgstr "Englisch"
+
+#: .\templates\addbook.html:4
+msgid "Neues Skript hinzufuegen"
+msgstr "Add a new book"
+
+#: .\templates\addmodul.html:4
+msgid "Neues Modul hinzufuegen"
+msgstr "Add a new class"
+
+#: .\templates\addbook.html:8
+msgid "Titel"
+msgstr "Title"
+
+#: .\templates\addbook.html:9
+msgid "Inhaltsverzeichnis"
+msgstr "Table of content"
+
+#: .\templates\addbook.html:13
+#: .\templates\addmodul.html:14
+msgid "hinzufuegen"
+msgstr "Add"
+
+#: .\templates\addmodul.html:8
+#: .\templates\addtask.html:8
+msgid "Name"
+msgstr "Name"
+
+#: .\templates\addmodul.html:9
+msgid "Startsemester"
+msgstr "Startterm"
+
+#: .\templates\addmodul.html:10
+msgid "Pruefungs Termin"
+msgstr "Examdate"
+
+#: .\templates\addmodul.html:11
+msgid "Modulfarbe"
+msgstr "Color"
+
+#: .\templates\addmodul.html:12
+msgid "PVL"
+msgstr "Preexam"
+
+#: .\templates\addtask.html:4
+msgid "Neue Aufgabe hinzufuegen"
+msgstr "Add a new task"
+
+#: .\templates\addtask.html:9
+msgid "Faellig am"
+msgstr "Due to"
+
+#: .\templates\addtask.html:10
+msgid "Beschreibung"
+msgstr "Description"
+
+#: .\templates\addtask.html:12
+msgid "abzugeben?"
+msgstr "Homework"
+
+#: .\templates\addtask.html:13
+msgid "Modul"
+msgstr "Class"
+
+#: .\templates\index.html:152
+msgid "Hallo"
+msgstr "Welcome"
+
+#: .\templates\index.html:152
+msgid "Ausloggen"
+msgstr "Sign off"
+
+#: .\templates\index.html:153
+msgid "Sprache"
+msgstr "Language"
+
+#: .\templates\index.html:154
+msgid "Englisch"
+msgstr "English"
+
+#: .\templates\index.html:155
+msgid "Deutsch"
+msgstr "German"
+
+#: .\templates\index.html:157
+msgid "Waehlen sie eine Aufgabe aus um deren Beschreibung zu sehen"
+msgstr "Choose a tesk from your ToDo List to see its content"
+
+#: .\templates\index.html:159
+#: .\templates\tasklist.html:1
+msgid "Tod-Do-Liste"
+msgstr "ToDo List"
+
+#: .\templates\index.html:191
+#: .\templates\listmoduls.html.py:2
+msgid "Aktive Module"
+msgstr "Ongoing classes"
+
+#: .\templates\index.html:201
+#: .\templates\listmoduls.html.py:12
+msgid "Pruefung am"
+msgstr "Exam on"
+
+#: .\templates\login.html:9
+msgid "Log dich mit deiner OpenID ein"
+msgstr "Log in with your OpenID"
+
+#: .\templates\login.html:14
+msgid "ncwTasks laeuft auf der Google App Engine"
+msgstr "ncwTasks is running on the Google App Engine. Check it out!"
+
+#: .\templates\showindex.html:7
+msgid "Fortschritt"
+msgstr "Progress"
+
+#: .\templates\showindex.html:12
+msgid "Inhalt"
+msgstr "Content"
+
+#: .\templates\showtask.html:6
+msgid "Faellig am:"
+msgstr "Due to"
+

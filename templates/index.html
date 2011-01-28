@@ -1,0 +1,171 @@
+{% load i18n %}
+<html>
+    <head>
+    <title>{{title}}</title>
+	<link type="text/css" rel="stylesheet" href="/static/style.css" />
+    <script type="text/javascript" src="./static/json2.js"></script>
+    <script type="text/javascript">
+	function setColor(color){
+		document.getElementById('colorpick').style.backgroundColor =color;
+		document.getElementById('color').value =color;
+	}
+	</script>
+    <script type="text/javascript">
+    //
+    // As mentioned at http://en.wikipedia.org/wiki/XMLHttpRequest
+    //
+    if( !window.XMLHttpRequest ) XMLHttpRequest = function()
+    {
+      try{ return new ActiveXObject("Msxml2.XMLHTTP.6.0") }catch(e){}
+      try{ return new ActiveXObject("Msxml2.XMLHTTP.3.0") }catch(e){}
+      try{ return new ActiveXObject("Msxml2.XMLHTTP") }catch(e){}
+      try{ return new ActiveXObject("Microsoft.XMLHTTP") }catch(e){}
+      throw new Error("Could not find an XMLHttpRequest alternative.")
+    };
+
+    //
+    // Makes an AJAX request to a local server function w/ optional arguments
+    //
+    // functionName: the name of the server's AJAX function to call
+    // opt_argv: an Array of arguments for the AJAX function
+    //
+	function Request(function_name, opt_argv) {
+		if (!opt_argv)
+    		opt_argv = new Array();
+
+  		// Find if the last arg is a callback function; save it
+  		var callback = null;
+  		var len = opt_argv.length;
+  		if (len > 0 && typeof opt_argv[len-1] == 'function') {
+    		callback = opt_argv[len-1];
+    		opt_argv.length--;
+  		}
+  		var async = (callback != null);
+
+  		// Build an Array of parameters, w/ function_name being the first parameter
+  		var params = new Array(function_name);
+  		for (var i = 0; i < opt_argv.length; i++) {
+    		params.push(opt_argv[i]);
+  		}
+ 	 	var body = JSON.stringify(params);
+
+  		// Create an XMLHttpRequest 'POST' request w/ an optional callback handler
+  		var req = new XMLHttpRequest();
+  		req.open('POST', '/rpc', async);
+
+  		req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  		req.setRequestHeader("Content-length", body.length);
+  		req.setRequestHeader("Connection", "close");
+
+  		if (async) {
+    		req.onreadystatechange = function() {
+      			if(req.readyState == 4 && req.status == 200) {
+        			var response = null;
+        			try {
+         				response = JSON.parse(req.responseText);
+        			} catch (e) {
+         				response = req.responseText;
+        			}
+        			callback(response);
+      			}	
+    		}
+  		}
+  		// Make the actual request
+  		if (params[0] == 'DeleteTask' || params[0] == 'CheckTask'){
+  			$('tasks').innerHTML = '<center><img src="/images/ajax-loader.gif"></center>';
+  			$('details').innerHTML = 'Waehlen Sie eine Aufgabe aus';
+  		}
+  		else if (params[0] == 'DeleteModul' || params[0] == 'DeleteBook'){
+  		  	$('classes').innerHTML = '<center><img src="/images/ajax-loader.gif"></center>';
+  			$('details').innerHTML = 'Loeschen erfolgreich!';
+  		}
+  		else {
+  			$('details').innerHTML = '<center><img src="/images/ajax-loader.gif"></center>';
+  		}
+  		req.send(body);
+	}
+    // Adds a stub function that will pass the arguments to the AJAX call
+    function InstallFunction(obj, functionName) {
+      obj[functionName] = function() { Request(functionName, arguments); }
+    }
+    </script>
+    <script type="text/javascript">
+    // Server object that will contain the callable methods
+    var server = {};
+    // Insert 'Add' as the name of a callable method
+    InstallFunction(server, 'ShowTask');
+    InstallFunction(server, 'AddTask');
+    InstallFunction(server, 'AddClass');
+    InstallFunction(server, 'AddBook');
+    InstallFunction(server, 'ShowBook');
+    InstallFunction(server, 'CheckChapter');
+    InstallFunction(server, 'DeleteTask');
+    InstallFunction(server, 'DeleteClass');
+    InstallFunction(server, 'CheckTask');
+    InstallFunction(server, 'DeleteBook');
+    
+    // Handy "macro"
+    function $(id){
+      return document.getElementById(id);
+    }
+    // Client function that calls a server rpc and provides a callback
+    
+	function showTask(task, class) {
+      server.ShowTask(task, class, onRPCSuccess);
+    }
+    function addTask(task) {
+      server.AddTask(task, onRPCSuccess);
+    }
+    function addClass(classname) {
+      server.AddClass(classname, onRPCSuccess);
+    }
+    function addBook(classname) {
+      server.AddBook(classname, onRPCSuccess);
+    }
+    function showBook(title,color) {
+      server.ShowBook(title, color, onRPCSuccess);
+    }
+    function checkChapter(name,classname,color) {
+      server.CheckChapter(name, classname,color, onRPCSuccess);
+    }
+    function deleteTask(task,classname) {
+      server.DeleteTask(classname, task, onTaskrefresh);
+    }
+    function deleteClass(classname) {
+      server.DeleteClass(classname, onModulrefresh);
+    }
+    function checkTask(task,classname) {
+      server.CheckTask(task, classname, onTaskrefresh);
+    }
+    function deleteBook(classname, book) {
+      server.DeleteBook(classname, book, onModulrefresh);
+    }
+    
+    // Callback for after a successful doAdd
+    function onRPCSuccess(response) {
+      $('details').innerHTML = response;
+    }
+    function onTaskrefresh(response) {
+    	$('tasks').innerHTML = response;
+    }
+    function onModulrefresh(response) {
+    	$('classes').innerHTML = response;
+    }
+    </script>
+</head>
+<body>
+	<div id="head">
+    	{% trans "Hallo" %} {{ user }} <a href="{{ logout }}">{% trans "Ausloggen" %}</a>
+    	<div style="float: right">{% trans "Sprache" %}
+    	<a href="/?language=en">{% trans "Englisch" %}</a>
+  		<a href="/?language=de">{% trans "Deutsch" %}</a></div>
+    </div>
+    <div id="details">{% trans "Waehlen sie eine Aufgabe aus um deren Beschreibung zu sehen" %}</div>
+    <div id="tasks">
+		{% include "tasklist.html" %}
+	</div>
+    <div id="classes">
+ 		{% include "listmoduls.html" %}
+	</div>
+  </body>
+</html>

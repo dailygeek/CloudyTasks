@@ -1,0 +1,24 @@
+{% load i18n %}
+<div id="taskdetail">
+	<div id="detailhead" style="border-bottom: 4px solid gray">
+		{% trans "Neue Aufgabe hinzufuegen" %}
+	</div>
+	<div id="detailbody" style="border-bottom: 2px solid gray">
+		<form method="post" action="/" name="formular" accept-cahrset="utf-8">
+                {% trans "Name" %} <input type="text" size="20" name="name">
+                {% trans "Faellig am" %} <input type="text" name="enddate" size="15" value="d.m.yyyy hh:mm">
+                <div>{% trans "Beschreibung" %}<br>
+                <textarea id="elm1" name="description" rows="15" cols="75" style="width: 100%"></textarea></div>
+                {% trans "abzugeben?" %} <input type="checkbox" name="homework" value="checked">
+                <br />{% trans "Modul" %}
+                <select name="class" size="1">
+                	<option></option>
+                {% for class in classes %}
+					<option>{{ class.name }}</option>
+				{% endfor %}
+				</select><br />
+				<input type="hidden" value="task" name="type" />
+				<input type="submit" value="Add" name="Hochladen">
+		</form>
+	</div>
+</div>

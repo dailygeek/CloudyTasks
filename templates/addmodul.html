@@ -1,0 +1,44 @@
+{% load i18n %}
+<div id="taskdetail">
+	<div id="detailhead" style="border-bottom: 4px solid gray">
+		{% trans "Neues Modul hinzufuegen" %}
+	</div>
+	<div id="detailbody" style="border-bottom: 2px solid gray">
+		<form method="post" action="/" name="formular" enctype="multipart/form-data">
+		<table colspan="0" padding="0">
+			<tr>
+				<td>{% trans "Name"%}</td>
+				<td><input type="text" size="20" name="name"></td>
+			</tr>
+			<tr>
+				<td>{% trans "Startsemester" %}</td>
+				<td><input type="text" name="semester" size="2"></td>
+			</tr>
+			<tr>
+				<td>{% trans "Pruefungs Termin" %}</td>
+				<td><input type="text" name="exam" size="10" value="d.m.yyyy"></td>
+			</tr>
+			<tr>
+				<td>{% trans "Modulfarbe" %}</td> 
+				<td><div id="colorpick" style="background-color: green;"
+									onclick="document.getElementById('colorpicker').style.visibility='visible';"
+				>
+				</div>
+				</td>
+			</tr>
+			<tr id="colorpicker">
+				<td></td><td>
+					{% include "colors.html" %}
+				<td>
+			</tr>
+			<tr>
+				<td>{% trans "PVL" %}</td>
+				<td><input type="checkbox" name="preexam" value="checked"></td>
+			</tr>
+			</table>
+			<input type="hidden" name="color" id="color" value="gray"/>
+			<input type="hidden" name="type" value="class"/>
+			<br /><input type="submit" value="{% trans "hinzufuegen" %}" name="Hochladen">
+		</form>
+	</div>
+</div>

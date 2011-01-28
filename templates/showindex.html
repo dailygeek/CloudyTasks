@@ -1,0 +1,28 @@
+{% load i18n %}
+<div id="taskdetail">
+	<div id="detailhead" style="background-color: {{ classcolor }}">
+		{{ bookname }}
+	</div>
+	<div id="detailbody" style="border: 1px solid {{ classcolor }}">
+    	{% trans "Fortschritt" %}
+		<div style="width:302px;height:20px; border: 1px solid black;">
+			<div style="width: {% widthratio percent 1 3 %}px;height:18px;margin: 1px;background-color: {{ classcolor }};"></div>
+		</div>
+		{{ percent }}%<br>
+    	{% trans "Inhalt" %}<br>
+		{% for chapter in chapters %}
+			<div style="border-bottom: 1px dashed gray;">
+			{% ifequal chapter.status "Fertig" %}
+				<font color="green">
+            		{{ chapter.number }} - {{ chapter.title }}
+        		</font>
+			{% else %}
+				{{ chapter.number }} - {{ chapter.title }}
+         		<a href="javascript:;" onclick="checkChapter('{{ bookname }}','{{ chapter.title }}','{{ classcolor }}')">
+           			<img border="0" style="width: 12px; float: right;" src="/images/check.png">
+				</a><br>
+			{% endifequal %}
+			</div>
+		{% endfor %}
+	</div>
+</div>

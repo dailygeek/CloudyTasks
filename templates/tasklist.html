@@ -1,0 +1,31 @@
+{% load i18n %}
+{% trans "Tod-Do-Liste" %}
+    		{% for task in urgent %}
+				<div id="task" style="background-color: #ff9073;border-bottom: 2px solid {{ task.color }}" onclick="showTask('{{ task.title }}','{{ task.classname }}')">
+					<label><b>{{ task.classname|slice:":3"|upper }}</b>|{{ task.title }}</label>
+					<a href="javascript:;" onclick="deleteTask('{{ task.title }}','{{ task.classname }}')">
+						<img id="icon" src="/images/delete.png">
+					</a>
+					<a href="javascript:;" onclick="checkTask('{{ task.title }}','{{ task.classname }}')">
+						<img id="icon" src="/images/check.png">
+					</a>
+					{% if task.homework %}
+						<img id="icon" src="/images/edit.png">
+					{% endif %}
+				</div>
+    		{% endfor %}
+        	{% for task in tasks %}
+				<div id="task" style="border-bottom: 2px solid {{ task.color }}" onclick="showTask('{{ task.title }}','{{ task.classname }}')">
+					<label><b>{{ task.classname|slice:":3"|upper }}</b>|{{ task.title }}</label>
+					<a href="javascript:;" onclick="deleteTask('{{ task.title }}','{{ task.classname }}')">
+						<img id="icon" src="/images/delete.png">
+					</a>
+					<a href="javascript:;" onclick="checkTask('{{ task.title }}','{{ task.classname }}')">
+						<img id="icon" src="/images/check.png">
+					</a>					
+					{% if task.homework %}
+						<img id="icon" src="/images/edit.png">
+					{% endif %}
+				</div>
+    		{% endfor %}
+    		<a href="javascript:;" onclick="addTask('new')"><img width="30px" src="/images/add.png" border="0"></a>

@@ -1,0 +1,27 @@
+{% load i18n %}
+{% trans "Aktive Module" %}
+    	{% for class in classes %}
+    		<div id="class">
+    			<div id="classhead" style="border-bottom: 2px solid {{ class.color }};">
+    				{{ class.name }}
+    				<a href="javascript:;" onclick="deleteClass('{{ class.name }}')">
+						<img id="icon" src="/images/delete.png">
+					</a>
+    			</div>
+    			<div id="classbody">
+    				{% trans "Pruefung am" %} {{ class.exam|date:"d. M Y" }}<br>
+    				{% for book in books %}
+    					{% ifequal book.classname class.name %}
+    						<div id="book" style="border-left: 10px solid {{ class.color }};">
+    							<a style="opacity: 1" href="javascript:;" onclick="showBook('{{ book.title }}','{{ class.color }}')">{{ book.titel }}</a>
+    							<a href="javascript:;" onclick="deleteBook('{{ book.classname }}','{{ book.title }}')">
+									<img id="icon" style="width: 15px;" src="/images/delete.png">
+								</a>
+    						</div>
+    					{% endifequal %}
+    				{% endfor %}
+    				<a href="javascript:;" onclick="addBook('{{ class.name }}')"><img width="15px" src="/images/add.png" border="0"> Add Skript</a>
+    			</div>
+    		</div>
+    	{% endfor %}
+<a href="javascript:;" onclick="addClass('new')"><img width="30px" src="/images/add.png" border="0"></a>

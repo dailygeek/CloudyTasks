@@ -1,0 +1,12 @@
+{% load i18n %}
+{% for task in tasks %}
+	<div id="taskdetail">
+		<div id="detailhead" style="border-bottom: 4px solid {{ task.color }}">
+			{{ task.classname }} >> {{ task.title }}
+			<font style="float:right; margin-right: 7px;">{% trans "Faellig am:" %} {{ task.enddate|date:"d. N Y - H:i" }}</font>
+		</div>
+		<div id="detailbody">
+			{{ task.text|linebreaks }}
+		</div>
+	</div>
+{% endfor %}
