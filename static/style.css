@@ -92,6 +92,13 @@ textarea, input, checkbox {
 #input {
 	border: 1px solid blie;
 }
+#logo {
+	width: 350px;
+}
+#demopic{
+	width: 100px;
+	border: 1px solid gray;
+}
 #login {
 	background: -moz-linear-gradient(top,  #d6e7fb,  #fff);
 	margin: 100px auto;

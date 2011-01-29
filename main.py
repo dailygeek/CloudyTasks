@@ -264,7 +264,7 @@ class RPCMethods:
             q = Chapter.all().filter('user ==',user).filter('book ==',bookname).filter('title ==',chapter)
             results = q.fetch(1)
         for result in results:
-            result.status = "Fertig"
+            result.state = "Fertig"
             result.put()
             break
         return self.ShowBook(bookname,args[2])
@@ -289,12 +289,12 @@ class RPCMethods:
         user = users.get_current_user()
         classname = args[0].replace('%20', ' ')
         #Deleting all Tasks for this Module
-        q = Task.all().filter('user ==',user).filter('classname ==',classname.replace('%20', ' '))
+        q = Task.all().filter('user ==',user).filter('classname ==',classname)
         results = q.fetch(10)
         for result in results:
             result.delete()
         #Deleting all the Scripts and Chapters from this Module
-        qq = Book.all().filter('user ==',user).filter('classname ==',classname.replace('%20', ' '))
+        qq = Book.all().filter('user ==',user).filter('classname ==',classname)
         scripts = qq.fetch(10)
         for script in scripts:
             qqq = Chapter.all().filter('book ==', script.title).filter('user ==',user)
@@ -302,7 +302,7 @@ class RPCMethods:
                 chapter.delete()
             script.delete()
         #Deleting the Module itself
-        qqqq = Class.all().filter('user ==',user).filter('name ==',classname.replace('%20', ' '))
+        qqqq = Class.all().filter('user ==',user).filter('name ==',classname)
         results = qqqq.fetch(10)
         for result in results:
             result.delete()
@@ -359,7 +359,7 @@ class RPCMethods:
         qq = Book.all().filter('user ==',user).filter('classname ==',classname.replace('%20', ' ')).filter('title ==',bookname)
         books = qq.fetch(10)
         for book in books:
-            qqq = Chapter.all().filter('book ==', script.title).filter('user ==',user)
+            qqq = Chapter.all().filter('book ==', book.title).filter('user ==',user)
             for chapter in qqq:
                 chapter.delete()
             book.delete()

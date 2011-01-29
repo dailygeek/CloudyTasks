@@ -11,7 +11,6 @@
     			<div id="classbody">
     				{% trans "Pruefung am" %} {{ class.exam|date:"d. M Y" }}<br>
     				{% for book in books %}
-					{{ book.title }}
     					{% ifequal book.classname class.name %}
     						<div id="book" style="border-left: 10px solid {{ class.color }};">
     							<a href="javascript:;" onclick="showBook('{{ book.title }}','{{ class.color }}')">{{ book.title }}</a>

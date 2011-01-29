@@ -6,14 +6,17 @@
 </head>
 <body>
 	<div id="login">
-		<img src="images/logo.png" border="0"/>
+		<img id="logo" src="images/logo.png" border="0"/>
   		<h1>{% trans "Log in with your OpenID" %}</h1>
   		{% for provider in providers %}
   			<a href="{{ provider.0 }}"><img src="images/providers/{{ provider.1 }}.png" border="0" /></a>
 		{% endfor %}
-		<h2>Screenshoots</h2>
-		<img src="images/demo1.png" /><img src="images/demo2.png" /><img src="images/demo3.png"/><br>
-		{% trans "CloudyTasks is a open source online study organizer running on the Google App Engine. You can checkout the code from GitHub and run your own instance" %}.
+		<h2>Screenshots</h2>
+		<a href="images/demo1.png" target="_blank"><img id="demopic" src="images/demo1.png" /></a>
+		<a href="images/demo2.png" target="_blank"><img id="demopic" src="images/demo2.png" /></a>
+		<a href="images/demo3.png" target="_blank"><img id="demopic" src="images/demo3.png" /></a>
+
+		{% trans "CloudyTasks is an open source online study organizer running on the Google App Engine. You can checkout the code from GitHub and run your own instance" %}.
 		<br>
 		<a href="https://github.com/dailygeek/CloudyTasks" target="_blank"><img src="https://github.com/images/modules/header/logov3-hover.png"></a>
 		<a href="https://code.google.com/intl/de-DE/appengine/" target="_blank"><img src="https://www.google.com/accounts/ah/appengine.jpg" border="0"></a>
