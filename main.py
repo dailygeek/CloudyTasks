@@ -229,7 +229,7 @@ class RPCMethods:
     
     def AddBook(self, *args):
         path = os.path.join(os.path.dirname(__file__), "templates", "addbook.html")
-        template_values = { 'modname' : args[0] }
+        template_values = { 'classname' : args[0] }
         code = template.render(path, template_values).decode('utf-8')
         return code
     
@@ -295,12 +295,12 @@ class RPCMethods:
             result.delete()
         #Deleting all the Scripts and Chapters from this Module
         qq = Book.all().filter('user ==',user).filter('classname ==',classname)
-        scripts = qq.fetch(10)
-        for script in scripts:
-            qqq = Chapter.all().filter('book ==', script.title).filter('user ==',user)
+        books = qq.fetch(10)
+        for book in books:
+            qqq = Chapter.all().filter('book ==', book.title).filter('user ==',user)
             for chapter in qqq:
                 chapter.delete()
-            script.delete()
+            book.delete()
         #Deleting the Module itself
         qqqq = Class.all().filter('user ==',user).filter('name ==',classname)
         results = qqqq.fetch(10)
@@ -345,7 +345,7 @@ class RPCMethods:
         q = Task.all().filter('user ==',user).filter('title ==',name).filter('classname ==',classname)
         results = q.fetch(10)
         for result in results:
-            result.status = "Fertig"
+            result.state = "Fertig"
             result.put()
         return self.RefreshTasks()
 
@@ -356,7 +356,7 @@ class RPCMethods:
         user = users.get_current_user()
         classname = args[0].replace('%20', ' ')
         bookname = args[1].replace('%20', ' ')
-        qq = Book.all().filter('user ==',user).filter('classname ==',classname.replace('%20', ' ')).filter('title ==',bookname)
+        qq = Book.all().filter('user ==',user).filter('classname ==',classname).filter('title ==',bookname)
         books = qq.fetch(10)
         for book in books:
             qqq = Chapter.all().filter('book ==', book.title).filter('user ==',user)
