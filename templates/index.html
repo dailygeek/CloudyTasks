@@ -110,8 +110,8 @@
     }
     // Client function that calls a server rpc and provides a callback
     
-	function showTask(task, class) {
-      server.ShowTask(task, class, onRPCSuccess);
+	function showTask(task, classname){
+      server.ShowTask(task, classname, onRPCSuccess);
     }
     function addTask(task) {
       server.AddTask(task, onRPCSuccess);
